@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "wuxingTool", "wuxingTool\wuxingTool.pyproj", "{816F4DFF-91D0-4B55-8516-6E1F5524D784}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{816F4DFF-91D0-4B55-8516-6E1F5524D784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{816F4DFF-91D0-4B55-8516-6E1F5524D784}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B53BC07D-97FB-4A4B-B4FB-A3C66690412A}
+	EndGlobalSection
+EndGlobal
