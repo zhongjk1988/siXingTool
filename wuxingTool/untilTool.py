@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*- 
 from collections import Counter
+import string
 class Tool ():
 
     list_0 = [0,3,6,9]
@@ -125,12 +126,32 @@ class Tool ():
         if list:
             for data_list in list:
                 num = self.Kill_SanMa_m(data_list,qian,bai,shi,ge)
-                if num >= 3 and not self.isTongMa(ertongyishsang_boot,qian,bai,shi,ge):
+                #if num >= 3 and not self.isTongMa(ertongyishsang_boot,qian,bai,shi,ge):
+                if num >= 3 :
                     return False
             return True
         else:
             return True
-        
+
+    def getData_list(self,mlist)->list:
+        qian = ""
+        bai = ""
+        shi = ""
+        ge = ""
+        bast_list = []
+
+        if mlist:
+            for data_list in mlist:
+                if len(data_list) == 4:
+                    qian = list(data_list)[0]
+                    bai = list(data_list)[1]
+                    shi = list(data_list)[2]
+                    ge = list(data_list)[3]
+                    bast_list.append(qian+bai+shi)
+                    bast_list.append(qian+shi+ge)
+                    bast_list.append(bai+shi+ge)
+                    bast_list.append(qian+bai+ge)
+        return bast_list
 
     #####################################################################################
 

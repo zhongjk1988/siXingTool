@@ -1001,6 +1001,7 @@ class MyFrame2 ( wx.Frame ):
             self.kill_012_Dict = str(self.m_Kill_012_textCtrl.GetValue()).split(" ")
             self.kill_hezhi_list = str(self.m_kill_hezhi_textCtrl.GetValue()).split(" ")
             self.kill_SanMa_List = str(self.m_Kill_SanMa_textCtrl.GetValue()).split(" ")
+            self.kill_SanMa_List = self.tool.getData_list(self.kill_SanMa_List)
             #获取和值
             
             #获取大底的数据并赋值给列表，去除换行符
