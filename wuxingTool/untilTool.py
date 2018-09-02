@@ -39,8 +39,10 @@ class Tool ():
 
     ####################################################################################
     # kill 2 码 直接杀二码
-    def Kill_ErMa_m(self,list,bai,shi,ge):
+    def Kill_ErMa_m(self,list,qian,bai,shi,ge):
         erma1 = 0
+        if str(qian) in list:
+            erma1 = erma1 + 1
         if str(bai) in list:
             erma1 = erma1 + 1
         if str(shi) in list:
@@ -68,9 +70,27 @@ class Tool ():
             erma1 = erma1 + 1
         return erma1
 
+     #kill 2 码 保留双
+    def Kill_ErMa_NoShuang_m(self,list,bai,shi,ge):
+        erma1 = 0
+        if str(bai) in list and str(shi) in list and bai != shi:
+            erma1 = erma1 + 1
+        if str(shi) in list and str(ge) in list and shi != ge:
+            erma1 = erma1 + 1
+        if str(bai) in list and str(ge) in list and bai != ge:
+            erma1 = erma1 + 1
+        return erma1
+
     #kill 2 码
-    def Kill_ErMa_Bool(self,list,bai,shi,ge,baoLiuTouWei_s,baoLiuTouWei):
-        if baoLiuTouWei_s:
+    def Kill_ErMa_Bool(self,list,qian,bai,shi,ge,baoLiuTouWei_s,baoLiuTouWei,baoLiuShuang):
+
+        if(baoLiuShuang):
+            if list:
+                for data_list in list:
+                    num = self.Kill_ErMa_NoShuang_m(data_list,bai,shi,ge)
+                    if num >= 1:
+                        return False
+        elif baoLiuTouWei_s:
             if list:
                 for data_list in list:
                     num = self.Kill_ErMa_NoTouSuan_m(data_list,bai,shi,ge)
@@ -85,13 +105,12 @@ class Tool ():
         else:
             if list:
                 for data_list in list:
-                    num = self.Kill_ErMa_m(data_list,bai,shi,ge)
+                    num = self.Kill_ErMa_m(data_list,qian,bai,shi,ge)
                     if num >= 2:
                         return False
         return True
     #####################################################################################
     #kill 3 码
-    # kill 2 码 直接杀二码
     def Kill_SanMa_m(self,list,qian,bai,shi,ge):
         erma1 = 0
         if str(qian) in list:
@@ -176,13 +195,19 @@ class Tool ():
         else:
             return True
     ######################################################################
-    def DaDiPinJie_Bool(self,daDiPinJie_Dict,shi,ge):
-        
+    def DaDiPinJie_Bool(self,daDiPinJie_Dict,flog,qian,bai,shi,ge):
         if daDiPinJie_Dict:
             for data in daDiPinJie_Dict:
-                if data[0] == str(shi) and data[1] == str(ge):
-                    return True
-            return False
+                if len(data) == 2:
+                    if data[0] == str(shi) and data[1] == str(ge):
+                        return not flog
+                if len(data) == 3:
+                    if data[0] == str(bai) and data[1] == str(shi) and data[2] == str(ge):
+                        return not flog
+                if len(data) == 4:
+                    if data[0] == str(qian) and data[1] == str(bai) and data[2] == str(shi) and data[3] == str(ge):
+                        return not flog
+            return flog
         else:
             return True
     ####################三胆#################################################
@@ -273,6 +298,7 @@ class Tool ():
             return True
     #5码豹子
     def Kill_xingtai_Bool(self,AAAAA_boot,AAABB_boot,baozhi_boot,wan,qian,bai,shi,ge):
+        print(AAAAA_boot)
         if baozhi_boot:
             if wan == qian and wan == bai and wan == shi and wan == ge:
                 return False
@@ -299,5 +325,13 @@ class Tool ():
             if len(list) >= 2: 
                 if (list[0] == 3 and list[1] == 2) or (list[0] == 2 and list[1] == 3):
                     return False
-            
+        if AAAAA_boot:
+            list = []
+            list.append(qian)
+            list.append(bai)
+            list.append(shi)
+            list.append(ge)
+            for i in list:
+                if list.count(i) >= 3:
+                    return False
         return True

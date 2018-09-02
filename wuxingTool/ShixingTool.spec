@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['ShixingTool.py'],
-             pathex=['E:\\VsProjects\\siXingTool\\wuxingTool'],
+             pathex=['E:\\shishiTool_work\\siXingTool\\wuxingTool'],
              binaries=[],
              datas=[],
              hiddenimports=[],

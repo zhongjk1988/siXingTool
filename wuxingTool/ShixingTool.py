@@ -38,6 +38,8 @@ class MyFrame2 ( wx.Frame ):
     kill_012_Dict = []
     #大底拼接
     daDiPinJie_Dict = []
+    daDiPinJie_flot = False
+    daDiPinJie_num = 2
     
     #至少两胆
     liangDan = False
@@ -45,6 +47,8 @@ class MyFrame2 ( wx.Frame ):
     baoLiuTouWei = False
     #保留头尾双
     baoLiuTouWei_s = False
+    #保留头尾双
+    baoLiuShuang = False
     #kill AAAAA
     AAAAA_boot = False
     AAABB_boot = False
@@ -353,6 +357,11 @@ class MyFrame2 ( wx.Frame ):
         self.m_BaoLiuTouWeiSuan_checkBox.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_HIGHLIGHT ) )
         
         b_kill_ErMa1.Add( self.m_BaoLiuTouWeiSuan_checkBox, 0, wx.ALL, 5 )
+
+        self.m_BaoLiushuang_checkBox = wx.CheckBox( self, wx.ID_ANY, u"保留双", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_BaoLiushuang_checkBox.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_HIGHLIGHT ) )
+        
+        b_kill_ErMa1.Add( self.m_BaoLiushuang_checkBox, 0, wx.ALL, 5 )
         
         
         bSizer22.Add( b_kill_ErMa1, 0, wx.EXPAND, 5 )
@@ -377,7 +386,6 @@ class MyFrame2 ( wx.Frame ):
         self.m_Kill_SanMa.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_HIGHLIGHT ) )
         
         b_kill_ErMa2.Add( self.m_Kill_SanMa, 0, wx.ALL, 5 )
-
 
         self.m_Kill_SanMa_textCtrl = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         self.m_Kill_SanMa_textCtrl.SetMinSize( wx.Size( 150,-1 ) )
@@ -453,6 +461,8 @@ class MyFrame2 ( wx.Frame ):
         self.m_sanma_checkBox = wx.CheckBox( self, wx.ID_ANY, u"三码", wx.DefaultPosition, wx.DefaultSize, 0 )
         b_kill_xingtai_box.Add( self.m_sanma_checkBox, 0, wx.ALL, 5 )
         
+        self.m_ch_erma_checkBox84 = wx.CheckBox( self, wx.ID_ANY, u"转二码", wx.DefaultPosition, wx.DefaultSize, 0 )
+        b_kill_xingtai_box.Add( self.m_ch_erma_checkBox84, 0, wx.ALL, 5 )
         
         bSizer22.Add( b_kill_xingtai_box, 0, wx.EXPAND, 5 )
         
@@ -577,6 +587,23 @@ class MyFrame2 ( wx.Frame ):
         self.m_DaDiPinJie_textCtrl.SetMinSize( wx.Size( 250,250 ) )
         
         b_DaDiPinJie.Add( self.m_DaDiPinJie_textCtrl, 0, wx.ALL, 5 )
+
+        bSizer25 = wx.BoxSizer( wx.HORIZONTAL )
+        
+        self.m_pinjie_flot_checkBox = wx.CheckBox( self, wx.ID_ANY, u"反集", wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer25.Add( self.m_pinjie_flot_checkBox, 0, wx.ALL, 5 )
+
+        self.m_erma_pinjie_checkBox = wx.CheckBox( self, wx.ID_ANY, u"二码", wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer25.Add( self.m_erma_pinjie_checkBox, 0, wx.ALL, 5 )
+        
+        self.m_sanma_pinjie_checkBox81 = wx.CheckBox( self, wx.ID_ANY, u"三码", wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer25.Add( self.m_sanma_pinjie_checkBox81, 0, wx.ALL, 5 )
+        
+        self.m_sima_pinjie_checkBox = wx.CheckBox( self, wx.ID_ANY, u"四码", wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer25.Add( self.m_sima_pinjie_checkBox, 0, wx.ALL, 5 )
+        
+        
+        b_DaDiPinJie.Add( bSizer25, 1, wx.EXPAND, 5 )
         
         
         bSizer33.Add( b_DaDiPinJie, 1, wx.EXPAND, 5 )
@@ -676,9 +703,14 @@ class MyFrame2 ( wx.Frame ):
         self.m_rongcuo_ge_xiao_checkBox.Bind( wx.EVT_CHECKBOX, self.RongCuo_dan_OnCheckBox )
         self.m_BaoLiuTouWei_checkBox.Bind( wx.EVT_CHECKBOX, self.Kill_BaoLiu_OnCheckBox )
         self.m_BaoLiuTouWeiSuan_checkBox.Bind( wx.EVT_CHECKBOX, self.Kill_BaoLiu_OnCheckBox )
+        self.m_BaoLiushuang_checkBox.Bind(wx.EVT_CHECKBOX,self.Kill_BaoLiu_OnCheckBox)
+        
         self.m_ertong_checkBox.Bind( wx.EVT_CHECKBOX, self.OnChecBox_ertong )
         self.m_sanma_checkBox.Bind( wx.EVT_CHECKBOX, self.m_sanma_OnCheckBox )
-
+        self.m_pinjie_flot_checkBox.Bind( wx.EVT_CHECKBOX, self.On_pinjie_flog_OnCheckBox )
+        self.m_erma_pinjie_checkBox.Bind( wx.EVT_CHECKBOX, self.On_pinjie_flog_OnCheckBox )
+        self.m_sanma_pinjie_checkBox81.Bind( wx.EVT_CHECKBOX, self.On_pinjie_flog_OnCheckBox )
+        self.m_sima_pinjie_checkBox.Bind( wx.EVT_CHECKBOX, self.On_pinjie_flog_OnCheckBox )
         
     def __del__( self ):
         pass
@@ -726,6 +758,8 @@ class MyFrame2 ( wx.Frame ):
         self.baoLiuTouWei = False
         #清空保留头尾双
         self.baoLiuTouWei_s = False
+        #清空保留双
+        self.baoLiuShuang = False
 
         #kill AAAAA
         self.AAAAA_boot = False
@@ -767,14 +801,14 @@ class MyFrame2 ( wx.Frame ):
                                         killHouEr_bool = self.tool.Get_HouErHeWeiBool(self.kill_HouErHeWei_list,killHouEr)
                                         killHouSan_bool = self.tool.Get_HouErHeWeiBool(self.kill_HouSanHeWei_list,killHouSan)
                                         #杀二码
-                                        killErMa_bool = self.tool.Kill_ErMa_Bool(self.kill_ErMa_Dict, bai, shi, ge,self.baoLiuTouWei_s,self.baoLiuTouWei)
+                                        killErMa_bool = self.tool.Kill_ErMa_Bool(self.kill_ErMa_Dict, qian, bai, shi, ge,self.baoLiuTouWei_s,self.baoLiuTouWei,self.baoLiuShuang)
                                         #杀三码
                                         killSanMa_bool = self.tool.Kill_SanMa_Bool(self.kill_SanMa_List,self.ertongyishsang_boot, qian,bai, shi, ge)
                                         #杀012
                                         #kill_012_bool = self.tool.Kill_012_Bool(self.kill_012_Dict,wan,qian, bai, shi, ge)
                                         kill_012_bool = self.tool.Kill_012_Bool(self.kill_012_Dict,qian, bai, shi, ge)
                                         #大底拼接
-                                        daDiPinJie_bool = self.tool.DaDiPinJie_Bool(self.daDiPinJie_Dict,shi,ge)
+                                        daDiPinJie_bool = self.tool.DaDiPinJie_Bool(self.daDiPinJie_Dict,self.daDiPinJie_flot,qian,bai,shi,ge)
                                         #胆码
                                         #danMa_bool = self.tool.DanMa_Bool(self.danMa_list,self.liangDan,wan,qian,bai,shi,ge)
                                         danMa_bool = self.tool.DanMa_Bool(self.danMa_list,self.liangDan,qian,bai,shi,ge)
@@ -791,9 +825,12 @@ class MyFrame2 ( wx.Frame ):
                                             #s = str(wan)+str(qian)+str(bai) + str(shi) + str(ge)
                                             if self.sanma_bool:
                                                 s = str(bai) + str(shi) + str(ge)
+                                            elif self.m_ch_erma_checkBox84.IsChecked():
+                                                s = str(shi) + str(ge)
                                             else:
                                                 s = str(qian)+str(bai) + str(shi) + str(ge)
-                                            self.result_list.append(s)
+                                            if not s in self.result_list:
+                                                self.result_list.append(s)
 
     # Virtual event handlers, overide them in your derived class
     def DanMaBai_OnCheckBox( self, event ):
@@ -875,9 +912,14 @@ class MyFrame2 ( wx.Frame ):
                 self.baoLiuTouWei = False
         if(cb.GetLabel() == r"保留头尾双"):
             if cb.GetValue() == True:
-                self.baoLiuTouWei_s = True
+                self.baoLiuTouWei_s = True 
             else:
                 self.baoLiuTouWei_s = False
+        if(cb.GetLabel() == r"保留双"):
+            if cb.GetValue() == True:
+                self.baoLiuShuang = True
+            else:
+                self.baoLiuShuang = False
         event.Skip()
     def Kill_xingtai_OnCheckBox( self, event ):
         cb = event.GetEventObject() 
@@ -897,7 +939,6 @@ class MyFrame2 ( wx.Frame ):
             else:
                 self.AAABB_boot = False
         event.Skip()
-
     def RongCuo_OnCheckBox( self, event ):
         cb = event.GetEventObject() 
         if(cb.GetLabel() == r"1-3容错"):
@@ -991,6 +1032,30 @@ class MyFrame2 ( wx.Frame ):
                     self.rongcuo_ge.remove(i)
         
         event.Skip()
+
+    def On_pinjie_flog_OnCheckBox( self, event ):
+        cb = event.GetEventObject() 
+        if(cb.GetLabel() == r"反集"):
+            if cb.GetValue() == True:
+                self.daDiPinJie_flot = True
+            if cb.GetValue() == False:
+                self.daDiPinJie_flot = False
+        if cb.GetLabel() == r"二码":
+            if cb.GetValue() == True:
+                self.daDiPinJie_num = 2
+            if cb.GetValue() == False:
+                self.daDiPinJie_num = 2
+        if cb.GetLabel() == r"三码":
+            if cb.GetValue() == True:
+                self.daDiPinJie_num = 3
+            if cb.GetValue() == False:
+                self.daDiPinJie_num = 2
+        if cb.GetLabel() == r"四码":
+            if cb.GetValue() == True:
+                self.daDiPinJie_num = 4
+            if cb.GetValue() == False:
+                self.daDiPinJie_num = 2
+        event.Skip()
     
     def OnButtonClick( self, event ):
         cb = event.GetEventObject() 
@@ -1012,7 +1077,7 @@ class MyFrame2 ( wx.Frame ):
                     num = num +1
                     add_data = add_data + data
                     #
-                    if num == 2:
+                    if num == self.daDiPinJie_num:
                         num = 0
                         self.daDiPinJie_Dict.append(add_data)
                         add_data = ""
@@ -1104,6 +1169,13 @@ class MyFrame2 ( wx.Frame ):
             self.m_Kill_012_textCtrl.Clear()
             #清空大底拼接
             self.m_DaDiPinJie_textCtrl.Clear()
+            self.daDiPinJie_flot = False
+            self.daDiPinJie_num = 2
+            self.m_pinjie_flot_checkBox.SetValue(False)
+            self.m_erma_pinjie_checkBox.SetValue(False)
+            self.m_sanma_pinjie_checkBox81.SetValue(False)
+            self.m_sima_pinjie_checkBox.SetValue(False)
+
             #清空结果
             self.m_result_textCtrl.Clear()
             #清空注数
